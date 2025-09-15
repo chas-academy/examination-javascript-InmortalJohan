@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>Budget- och utgiftskoll</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Budget- och utgiftskoll</h1>
+  <h1 class="rubrik">Budget- och utgiftskoll</h1>
 
   <!-- Formulär för att lägga till transaktioner -->
+   <div class="container">
   <div>
     <label for="desc">Beskrivning:</label>
     <input type="text" id="desc" placeholder="Ex: Mat, Hyra" />
@@ -18,12 +18,14 @@
     <label for="amount">Belopp:</label>
     <input type="number" id="amount" placeholder="Ex: 500" />
   </div>
-  
+  </div>
   <!-- Knappar för inkomst och utgift -->
-  <button id="incomeBtn">Lägg till Inkomst</button>
-  <button id="expenseBtn">Lägg till Utgift</button>
-
+   <div class="buttons">
+  <button class="income" id="incomeBtn">Lägg till Inkomst</button>
+  <button class="exspense" id="expenseBtn">Lägg till Utgift</button>
+    </div>
   <!-- Lista med inkomster -->
+   <div class="listContainer">
   <h2>Inkomster</h2>
   <ul id="incomeList"></ul>
 
@@ -34,9 +36,13 @@
   <!-- Lista med transaktioner -->
   <h2>Transaktioner</h2>
   <ul id="transactionList"></ul>
-
+  </div>
+  <div class="saldo">
   <!-- Visning av totalt saldo -->
   <h2>Saldo: <span id="balance">0</span> kr</h2>
 
+  <button id="clearAll">Rensa allt</button>
+  </div>
+ <script src="script.js" defer></script>
 </body>
 </html>
