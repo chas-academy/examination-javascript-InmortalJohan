@@ -42,9 +42,18 @@ function addTransaction(type) {
 // render function
 
 function renderTransaction(transaction, listElement, cssClass){
-    const li = document.createElement("li");
+    // const li = document.createElement("li");
+    // li.classList.add(cssClass);
+    // li.textContent = `${transaction.description}: ${transaction.amount} kr`;
+
+     const li = document.createElement("li");
     li.classList.add(cssClass);
-    li.textContent = `${transaction.description}: ${transaction.amount} kr`;
+
+    let typeLabel = "";
+    if (transaction.type === "income") typeLabel = " (Inkomst)";
+    else if (transaction.type === "expense") typeLabel = " (Utgift)";
+
+    li.textContent = `${transaction.description} - ${transaction.amount} kr${typeLabel}`;
 
     const deleteBtn = document.createElement("button");
     deleteBtn.textContent="❌";
