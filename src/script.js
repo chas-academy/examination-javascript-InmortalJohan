@@ -10,7 +10,7 @@ const amountInput = document.getElementById("amount");
 const incomeList = document.getElementById("incomeList");
 const expenseList = document.getElementById("expenseList");
 const totalDisplay = document.getElementById("balance");
-const transactionList = document.getElementById("transactionList");
+// const transactionList = document.getElementById("transactionList");
 
 
 // === Function to add transaction ===== //
@@ -23,7 +23,7 @@ function addTransaction(type) {
         return;
     }
 
-    const transaction = { id:Date.now(), description, amount, type };
+    const transaction = { description, amount, type };
 
     if(type === "income"){
         incomes.push(transaction);
@@ -33,25 +33,21 @@ function addTransaction(type) {
         renderTransaction(transaction, expenseList,"expense");
     }
 
-    renderTransaction(transaction, transactionList, transaction.type);
     updateTotal();
+    descInput.value = "";
+    amountInput.value = "";
+    descInput.focus();
 
 }
 
 // render function
 
-function renderTransaction(transaction, listElement, cssClass){
-  
-
-     const li = document.createElement("li");
+function renderTransaction(transaction, listElement, cssClass) {
+    const li = document.createElement("li");
     li.classList.add(cssClass);
 
-    let typeLabel = "";
-    if (transaction.type === "income") typeLabel = " (Inkomst)";
-    else if (transaction.type === "expense") typeLabel = " (Utgift)";
-
-    li.textContent = `${transaction.description} : ${transaction.amount} kr${typeLabel}`;
-
+    let typeLabel = transaction.type === "income" ? " (Inkomst)" : " (Utgift)";
+    li.textContent = `${transaction.description}: ${transaction.amount} kr${typeLabel}`;
 
     listElement.appendChild(li);
 }
@@ -69,33 +65,33 @@ function updateTotal(){
 
 // save and load data from localStorage
 
-function saveData(){
-    localStorage.setItem("incomes", JSON.stringify(incomes));
-    localStorage.setItem("expenses",JSON.stringify(expenses));
-}
+// function saveData(){
+//     localStorage.setItem("incomes", JSON.stringify(incomes));
+//     localStorage.setItem("expenses",JSON.stringify(expenses));
+// }
 
-function loadData() {
-    incomes = JSON.parse(localStorage.getItem("incomes")) || [];
-    expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+// function loadData() {
+//     incomes = JSON.parse(localStorage.getItem("incomes")) || [];
+//     expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
-    incomes.forEach(t => {
-        renderTransaction(t, incomeList, "income");
-        renderTransaction(t, transactionList, "income");
-    });
+//     incomes.forEach(t => {
+//         renderTransaction(t, incomeList, "income");
+//         renderTransaction(t, transactionList, "income");
+//     });
 
-    expenses.forEach(t => {
-        renderTransaction(t, expenseList, "expense");
-        renderTransaction(t, transactionList, "expense");
-    });
+//     expenses.forEach(t => {
+//         renderTransaction(t, expenseList, "expense");
+//         renderTransaction(t, transactionList, "expense");
+//     });
 
-    updateTotal();
-}
+//     updateTotal();
+// }
 
 // diffrent types of listeners
 
 document.getElementById("incomeBtn").addEventListener("click",()=> addTransaction("income"));
 document.getElementById("expenseBtn").addEventListener("click", () => addTransaction("expense"));
 
-// load former data/inputs
+// // load former data/inputs
 
-loadData();
+// loadData();
