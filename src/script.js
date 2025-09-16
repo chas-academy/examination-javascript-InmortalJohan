@@ -11,7 +11,7 @@ const incomeList = document.getElementById("incomeList");
 const expenseList = document.getElementById("expenseList");
 const totalDisplay = document.getElementById("balance");
 const transactionList = document.getElementById("transactionList");
-const clearAllBtn = document.getElementById("clearAll");
+
 
 // === Function to add transaction ===== //
 function addTransaction(type) {
@@ -35,16 +35,13 @@ function addTransaction(type) {
 
     renderTransaction(transaction, transactionList, transaction.type);
     updateTotal();
-    saveData();
 
 }
 
 // render function
 
 function renderTransaction(transaction, listElement, cssClass){
-    // const li = document.createElement("li");
-    // li.classList.add(cssClass);
-    // li.textContent = `${transaction.description}: ${transaction.amount} kr`;
+  
 
      const li = document.createElement("li");
     li.classList.add(cssClass);
@@ -53,37 +50,12 @@ function renderTransaction(transaction, listElement, cssClass){
     if (transaction.type === "income") typeLabel = " (Inkomst)";
     else if (transaction.type === "expense") typeLabel = " (Utgift)";
 
-    li.textContent = `${transaction.description} - ${transaction.amount} kr${typeLabel}`;
+    li.textContent = `${transaction.description} : ${transaction.amount} kr${typeLabel}`;
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent="❌";
-    deleteBtn.style.marginLeft = "10px";
-    deleteBtn.addEventListener("click", () => removeTransaction(transaction, li));
 
-    li.appendChild(deleteBtn);
     listElement.appendChild(li);
 }
 
-// remove transaction function
-
-function removeTransaction(transaction, listItem) {
-    if (transaction.type === "income") {
-        incomes = incomes.filter(t => t.id !== transaction.id);
-    } else {
-        expenses = expenses.filter(t => t.id !== transaction.id);
-    }
-
-    listItem.remove();
-
-    [...transactionList.children].forEach(li => {
-        if (li.textContent.includes(transaction.description) && li.textContent.includes(transaction.amount)){
-            li.remove();
-        }
-    });
-
-    updateTotal();
-    saveData();
-}
 
 // function to update total
 
@@ -119,26 +91,10 @@ function loadData() {
     updateTotal();
 }
 
-// function to clear all 
-
-function clearAll() {
-    const confirmClear = confirm("Vill du verkligen rensa alla transaktioner?");
-    if (!confirmClear) return;
-
-    incomes=[];
-    expenses = [];
-     incomeList.innerHTML = "";
-    expenseList.innerHTML = "";
-    transactionList.innerHTML = "";
-    totalDisplay.textContent = "0";
-    localStorage.clear();
-}
-
 // diffrent types of listeners
 
 document.getElementById("incomeBtn").addEventListener("click",()=> addTransaction("income"));
 document.getElementById("expenseBtn").addEventListener("click", () => addTransaction("expense"));
-clearAllBtn.addEventListener("click", clearAll);
 
 // load former data/inputs
 
