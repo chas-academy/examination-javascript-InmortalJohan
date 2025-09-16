@@ -47,7 +47,7 @@ function renderTransaction(transaction, listElement, cssClass) {
     li.classList.add(cssClass);
 
     let typeLabel = transaction.type === "income" ? " (Inkomst)" : " (Utgift)";
-    li.textContent = `${transaction.description}- ${transaction.amount} kr${typeLabel}`;
+    li.textContent = `${transaction.description} - ${transaction.amount} kr${typeLabel}`;
 
     listElement.appendChild(li);
 }
